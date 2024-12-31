@@ -11,6 +11,62 @@ https://lcs-mobile-cops.adobe.io/mobiles/access_profile/v3 url script-response-b
 hostname = lcs-mobile-cops.adobe.io
 
 */
+/*
+ * b64解码
+// Base64解码函数
+function base64Decode(input) {
+    try {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+        let str = String(input).replace(/=+$/, '');
+        let binaryStr = '';
+
+        if (str.length % 4 === 1) {
+            throw new Error('Invalid base64 string');
+        }
+
+        for (
+            let bc = 0, bs, buffer, idx = 0; buffer = str.charAt(idx++); ~buffer &&
+            (bs = bc % 4 ? bs * 64 + buffer : buffer,
+                bc++ % 4) ? binaryStr += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+        ) {
+            buffer = chars.indexOf(buffer);
+        }
+
+        return binaryStr;
+    } catch (e) {
+        console.log(`Base64 Decode Error: ${e.message}`);
+        return null;
+    }
+}
+
+// Base64编码函数
+function base64Encode(input) {
+    try {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+        let str = String(input);
+        let output = '';
+
+        for (
+            let block, charCode, idx = 0, map = chars;
+            str.charAt(idx | 0) || (map = '=', idx % 1);
+            output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+        ) {
+            charCode = str.charCodeAt(idx += 3 / 4);
+
+            if (charCode > 0xFF) {
+                throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+            }
+
+            block = block << 8 | charCode;
+        }
+
+        return output;
+    } catch (e) {
+        console.log(`Base64 Encode Error: ${e.message}`);
+        return null;
+    }
+}
+*/
 
 
 var objc = {
@@ -21,4 +77,3 @@ var objc = {
 };
 
 $done({ body: JSON.stringify(objc) });
-
